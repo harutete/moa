@@ -3,11 +3,12 @@ import './index.css';
 
 type Props = {
   id: string;
+  isHidden: boolean;
   children: React.ReactNode;
 };
 
-export const TabContent: React.FC<Props> = ({ id, children }) => (
-  <div className="tabContent" id={id}>
+export const TabContent: React.FC<Props> = ({ id, isHidden, children }) => (
+  <div role="tabpanel" className="tabContent" id={id}>
     {children}
   </div>
 );
