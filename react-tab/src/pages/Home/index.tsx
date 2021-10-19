@@ -1,5 +1,5 @@
 import './index.css';
-import { Tab, TabContentWrap, TabContent, TabLabel, TabLabelList } from '../../components/Tab'
+import { Tab, TabContent, TabLabel, TabLabelList } from '../../components/Tab';
 
 const Home = () => (
   <div>
@@ -9,14 +9,12 @@ const Home = () => (
         <TabLabel label="Tab1" />
         <TabLabel label="Tab2" />
       </TabLabelList>
-      <TabContentWrap>
-        <TabContent>
-          <p>Tab1</p>
-        </TabContent>
-        <TabContent>
-          <p>Tab2</p>
-        </TabContent>
-      </TabContentWrap>
+      <TabContent id="tab1">
+        <p>Tab1</p>
+      </TabContent>
+      <TabContent id="tab2">
+        <p>Tab2</p>
+      </TabContent>
     </Tab>
   </div>
 );

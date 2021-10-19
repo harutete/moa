@@ -2,7 +2,12 @@ import type React from 'react';
 import './index.css';
 
 type Props = {
-  children: React.ReactNode
-}
+  id: string;
+  children: React.ReactNode;
+};
 
-export const TabContent: React.FC<Props> = ({ children }) => <div className="tabContent">{children}</div>
+export const TabContent: React.FC<Props> = ({ id, children }) => (
+  <div className="tabContent" id={id}>
+    {children}
+  </div>
+);
