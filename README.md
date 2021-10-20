@@ -1,4 +1,4 @@
 # README
 
 - [react-tab](https://github.com/harutete/moa/tree/main/react-tab)
-  - Reactでアクセシビリティを考慮したタブを作成してみる
+  - ReactでWAI-ARIA対応したタブを作成してみる
