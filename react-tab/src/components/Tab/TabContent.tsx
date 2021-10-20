@@ -1,5 +1,4 @@
 import type React from 'react';
-import './index.css';
 
 type Props = {
   id: string;
@@ -8,7 +7,7 @@ type Props = {
 };
 
 export const TabContent: React.FC<Props> = ({ id, isHidden, children }) => (
-  <div role="tabpanel" className="tabContent" id={id}>
+  <div role="tabpanel" className="tabContent" id={id} aria-hidden={isHidden}>
     {children}
   </div>
 );

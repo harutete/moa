@@ -1,0 +1,45 @@
+.tab {
+  overflow: hidden;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+}
+
+.tabLabelList {
+  display: flex;
+  list-style: none;
+}
+
+.tabLabel {
+  flex-grow: 1;
+  border-right: 1px solid #dddddd;
+}
+
+.tabLabel:last-child {
+  border-right: none;
+}
+
+.tabLabelButton {
+  cursor: pointer;
+  display: block;
+  background-color: transparent;
+  border: none;
+  color: #cccccc;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  padding: 12px;
+}
+
+.tabLabelButton[aria-selected="true"] {
+  border-bottom: 4px solid #ffc947;
+  color: #0a1931;
+}
+
+.tabContent {
+  border-top: 1px solid #dddddd;
+  padding: 12px;
+}
+
+.tabContent[aria-hidden="true"] {
+  display: none;
+}

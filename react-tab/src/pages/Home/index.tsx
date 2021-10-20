@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import type React from 'react';
 
+import { useTabState } from '../../hooks/useTabState'
 import { Tab, TabContent, TabLabel, TabLabelList } from '../../components/Tab';
 
 import './index.css';
 
 const Home = () => {
-  const [selectedTab, setSelectedTab] = useState('tab1');
+  const { state, handleSetState } = useTabState('tab1')
   const handleTabSelect = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log({ event });
+    const selectedValue = event.currentTarget.getAttribute('aria-controls')
+    if (selectedValue === null) {
+      return
+    }
+    handleSetState(selectedValue)
   };
   return (
     <div>
@@ -18,19 +23,19 @@ const Home = () => {
             controlLabel="tab1"
             label="Tab1"
             onClick={handleTabSelect}
-            isSelected={selectedTab === 'tab1'}
+            isSelected={state === 'tab1'}
           />
           <TabLabel
             controlLabel="tab2"
             label="Tab2"
             onClick={handleTabSelect}
-            isSelected={selectedTab === 'tab2'}
+            isSelected={state === 'tab2'}
           />
         </TabLabelList>
-        <TabContent id="tab1" isHidden={selectedTab !== 'tab1'}>
+        <TabContent id="tab1" isHidden={state !== 'tab1'}>
           <p>Tab1</p>
         </TabContent>
-        <TabContent id="tab2" isHidden={selectedTab !== 'tab2'}>
+        <TabContent id="tab2" isHidden={state !== 'tab2'}>
           <p>Tab2</p>
         </TabContent>
       </Tab>
