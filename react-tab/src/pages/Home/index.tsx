@@ -3,6 +3,8 @@ import type React from 'react';
 import { useTabState } from '../../hooks/useTabState'
 import { Tab, TabContent, TabLabel, TabLabelList } from '../../components/Tab';
 
+import './index.css'
+
 const Home = () => {
   const { state, handleSetState } = useTabState('tab1')
   const handleTabSelect = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -13,7 +15,7 @@ const Home = () => {
     handleSetState(selectedValue)
   };
   return (
-    <div>
+    <div className="home">
       <h1>Tab</h1>
       <Tab>
         <TabLabelList>
