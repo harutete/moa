@@ -1,2 +1,8 @@
 @import './foundation/variables';
 @import './base/base';
+
+.wrapper {
+  width: 500px;
+  max-width: 85%;
+  margin: auto;
+}
