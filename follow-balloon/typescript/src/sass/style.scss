@@ -37,7 +37,7 @@
     text-align: center;
     padding: 8px;
 
-    &.is-current {
+    &.navListCurrentItem {
       background-color: $color-primary;
       color: $color-secondary;
       font-weight: bold;
