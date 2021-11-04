@@ -1,6 +1,8 @@
 import '../sass/style.scss';
 
 const followComment = () => {
+  const styleSheets = document.styleSheets
+  const sheet = styleSheets[styleSheets.length - 1]
   const pickupComment = document.querySelector('.js-pickupComment') as HTMLDivElement
   const navigationList = document.querySelector('.js-navList')
   const targetNavigationItem = document.querySelector('.js-currentItem')
@@ -14,8 +16,12 @@ const followComment = () => {
   const navigationItemPosition = targetNavigationItem.getBoundingClientRect().left
   const targetItemPosition = navigationItemPosition - navigationListPosition
 
-  // TODO 擬似要素はJSで制御できないのでスタイルシートを上書きするようにする
-  // pickupComment.style.left = `${targetItemPosition}px`
+  sheet.insertRule(
+    `.js-pickupComment::before {
+      left: ${targetItemPosition}px
+    }`,
+    sheet.cssRules.length
+  )
 }
 
 window.addEventListener('DOMContentLoaded', () => {
