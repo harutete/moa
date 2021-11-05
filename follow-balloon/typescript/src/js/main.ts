@@ -12,16 +12,24 @@ const followComment = () => {
     return
   }
 
-  const navigationListPosition = navigationList.getBoundingClientRect().left
-  const navigationItemPosition = targetNavigationItem.getBoundingClientRect().left
-  const targetItemPosition = navigationItemPosition - navigationListPosition
+  const followBallon = () => {
+    const navigationListPosition = navigationList.getBoundingClientRect().left
+    const navigationItemPosition = targetNavigationItem.getBoundingClientRect().left
+    const targetItemPosition = navigationItemPosition - navigationListPosition
 
-  sheet.insertRule(
-    `.js-pickupComment::before {
-      left: ${targetItemPosition}px
-    }`,
-    sheet.cssRules.length
-  )
+    sheet.insertRule(
+      `.js-pickupComment::before {
+        left: ${targetItemPosition}px
+      }`,
+      sheet.cssRules.length
+    )
+  }
+
+  followBallon()
+
+  navigationList.addEventListener('scroll', () => {
+    followBallon()
+  })
 }
 
 window.addEventListener('DOMContentLoaded', () => {
