@@ -21,7 +21,7 @@ const App: React.FC = () => {
         <p>コメント</p>
       </div>
       <nav className="navWrap">
-        <ul>
+        <ul className="navList">
           {MENU_LIST.map(item => <li key={item}>{item}</li>)}
         </ul>
       </nav>
