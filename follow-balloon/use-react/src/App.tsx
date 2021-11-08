@@ -17,9 +17,10 @@ const App: React.FC = () => {
   return (
     <div className="wrapper">
       <h1>Follow ballon</h1>
-      <div className="pickupComment">
-        <p>コメント</p>
-      </div>
+      <p className="pickupComment">
+        コメント
+        <span className="pickupCommentArrow"></span>
+      </p>
       <nav className="navWrap">
         <ul className="navList">
           {MENU_LIST.map(item => <li key={item}>{item}</li>)}

@@ -14,14 +14,13 @@
   color: $color-secondary;
   margin-bottom: 16px;
   padding: 8px;
+}
 
-  &::before {
-    content: '';
-    position: absolute;
-    border: 8px solid transparent;
-    bottom: -16px;
-    border-top: 8px solid $color-primary;
-  }
+.pickupCommentArrow {
+  position: absolute;
+  border: 8px solid transparent;
+  bottom: -16px;
+  border-top: 8px solid $color-primary;
 }
 
 .navWrap {
