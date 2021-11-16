@@ -1,7 +1,10 @@
 import type React from 'react';
+import { useRef, createRef, RefObject } from 'react';
 import './App.scss';
 
 const App: React.FC = () => {
+  const menuItems = useRef<HTMLLIElement[]>([])
+  console.log({menuItems})
   const calcArrowPosition = 0
   const MENU_LIST = [
     {
@@ -41,7 +44,9 @@ const App: React.FC = () => {
       isCurrent: false
     },
   ]
-
+  MENU_LIST.forEach((_, index) => {
+    menuItems.current[index] = createRef() as unknown as HTMLLIElement
+  })
   return (
     <div className="wrapper">
       <h1>Follow ballon</h1>
@@ -51,7 +56,7 @@ const App: React.FC = () => {
       </p>
       <nav className="navWrap">
         <ul className="navList">
-          {MENU_LIST.map(item => <li key={item.title} className={item.isCurrent ? 'is-current' : undefined}>{item.title}</li>)}
+          {MENU_LIST.map((item, index) => <li key={item.title} className={item.isCurrent ? 'is-current' : undefined} ref={menuItems.current[index]}>{item.title}</li>)}
         </ul>
       </nav>
     </div>
