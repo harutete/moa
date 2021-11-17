@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useRef, createRef, RefObject } from 'react';
+import { useRef, createRef, LegacyRef } from 'react';
 import './App.scss';
 
 const App: React.FC = () => {
@@ -56,7 +56,7 @@ const App: React.FC = () => {
       </p>
       <nav className="navWrap">
         <ul className="navList">
-          {MENU_LIST.map((item, index) => <li key={item.title} className={item.isCurrent ? 'is-current' : undefined} ref={menuItems.current[index]}>{item.title}</li>)}
+          {MENU_LIST.map((item, index) => <li key={item.title} className={item.isCurrent ? 'is-current' : undefined} ref={menuItems.current[index] as unknown as LegacyRef<HTMLLIElement> | undefined}>{item.title}</li>)}
         </ul>
       </nav>
     </div>
