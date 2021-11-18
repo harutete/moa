@@ -3,8 +3,6 @@ import { useRef, createRef, LegacyRef } from 'react';
 import './App.scss';
 
 const App: React.FC = () => {
-  const menuItems = useRef<HTMLLIElement[]>([])
-  console.log({menuItems})
   const calcArrowPosition = 0
   const MENU_LIST = [
     {
@@ -44,9 +42,8 @@ const App: React.FC = () => {
       isCurrent: false
     },
   ]
-  MENU_LIST.forEach((_, index) => {
-    menuItems.current[index] = createRef() as unknown as HTMLLIElement
-  })
+  const menuItems = useRef(MENU_LIST.map(() => createRef<HTMLLIElement>()))
+
   return (
     <div className="wrapper">
       <h1>Follow ballon</h1>
