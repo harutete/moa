@@ -42,19 +42,24 @@ const MENU_LIST = [
 ]
 
 const App: React.FC = () => {
-  const menuItems = useRef(MENU_LIST.map(() => createRef<HTMLLIElement>()))
+  const wrapperRef = useRef<HTMLDivElement>(null)
+  const menuItemsRef = useRef(MENU_LIST.map(() => createRef<HTMLLIElement>()))
+  const [wrapperPosition, setWrapperPosition] = useState(0)
   const [arrowPosition, setArrowPosition] = useState(4)
 
   useEffect(() => {
-    const currentItem = menuItems.current.filter((item) => /is-current/.test(String(item.current?.className)))
-    if (!currentItem.length) {
+    const currentItem = menuItemsRef.current.filter((item) => /is-current/.test(String(item.current?.className)))
+    if (!wrapperRef.current || !currentItem.length) {
       return
     }
-    setArrowPosition(currentItem[0]?.current?.getBoundingClientRect().left ?? 4)
+    const wrapperLeftPosition = wrapperRef.current.getBoundingClientRect().left
+    const currentItemLeftPosition = currentItem[0]?.current?.getBoundingClientRect().left ?? 4
+    setWrapperPosition(wrapperLeftPosition)
+    setArrowPosition(currentItemLeftPosition === 4 ? 4 : currentItemLeftPosition - wrapperLeftPosition)
   }, [])
 
   return (
-    <div className="wrapper">
+    <div className="wrapper" ref={wrapperRef}>
       <h1>Follow ballon</h1>
       <p className="pickupComment">
         コメント
@@ -62,7 +67,7 @@ const App: React.FC = () => {
       </p>
       <nav className="navWrap">
         <ul className="navList">
-          {MENU_LIST.map((item, index) => <li key={item.title} className={item.isCurrent ? 'is-current' : undefined} ref={menuItems.current[index] as unknown as LegacyRef<HTMLLIElement> | undefined}>{item.title}</li>)}
+          {MENU_LIST.map((item, index) => <li key={item.title} className={item.isCurrent ? 'is-current' : undefined} ref={menuItemsRef.current[index] as unknown as LegacyRef<HTMLLIElement> | undefined}>{item.title}</li>)}
         </ul>
       </nav>
     </div>
