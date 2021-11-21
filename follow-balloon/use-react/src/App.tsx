@@ -42,17 +42,19 @@ const MENU_LIST = [
 ]
 
 const App: React.FC = () => {
+  // 矢印のポジションの閾値
+  const ARROW_POSITION_THRESHOLD = 4
   const wrapperRef = useRef<HTMLDivElement>(null)
   const menuItemsRef = useRef(MENU_LIST.map(() => createRef<HTMLLIElement>()))
   const [currentItem, setCurrentItem] = useState<HTMLLIElement | null>(null)
   const [wrapperPosition, setWrapperPosition] = useState<DOMRect | null>(null)
-  const [arrowPosition, setArrowPosition] = useState(4)
-  const onScrollNavi = () => {
+  const [arrowPosition, setArrowPosition] = useState(ARROW_POSITION_THRESHOLD)
+  const onScrollNavigation = () => {
     const calcItemPosition = currentItem?.getBoundingClientRect().left
     if (!wrapperPosition?.left || !calcItemPosition) {
-      return 4
+      return ARROW_POSITION_THRESHOLD
     }
-    setArrowPosition(calcItemPosition === 4 ? 4 : calcItemPosition - wrapperPosition?.left)
+    setArrowPosition(calcItemPosition === ARROW_POSITION_THRESHOLD ? ARROW_POSITION_THRESHOLD : calcItemPosition - wrapperPosition?.left)
   }
 
   useEffect(() => {
@@ -75,7 +77,7 @@ const App: React.FC = () => {
         <span className="pickupCommentArrow" style={{left: `${arrowPosition}px`}}></span>
       </p>
       <nav className="navWrap">
-        <ul className="navList" onScroll={onScrollNavi}>
+        <ul className="navList" onScroll={onScrollNavigation}>
           {MENU_LIST.map((item, index) => <li key={item.title} className={item.isCurrent ? 'is-current' : undefined} ref={menuItemsRef.current[index] as unknown as LegacyRef<HTMLLIElement> | undefined}>{item.title}</li>)}
         </ul>
       </nav>
