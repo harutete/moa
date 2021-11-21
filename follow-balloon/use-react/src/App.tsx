@@ -55,7 +55,7 @@ const App: React.FC = () => {
     if (!wrapperPosition?.left || !calcItemPosition) {
       return ARROW_POSITION_THRESHOLD
     }
-    setArrowPosition(calcItemPosition === ARROW_POSITION_THRESHOLD ? ARROW_POSITION_THRESHOLD : calcItemPosition - wrapperPosition?.left)
+    setArrowPosition(calcItemPosition === ARROW_POSITION_THRESHOLD ? ARROW_POSITION_THRESHOLD : calcItemPosition - wrapperPosition?.left + currentItemWidth)
   }
 
   useEffect(() => {
@@ -65,11 +65,11 @@ const App: React.FC = () => {
     }
     const wrapperRect = wrapperRef.current.getBoundingClientRect()
     const currentItemLeftPosition = currentItemRef[0]?.current?.getBoundingClientRect().left ?? ARROW_POSITION_THRESHOLD
-    const currentListItemWidth = currentItemRef[0]?.current?.clientWidth ?? 0
+    const currentListItemWidth = currentItemRef[0]?.current?.clientWidth ? (currentItemRef[0]?.current?.clientWidth / 2) - 8 : 0
     setCurrentItem(currentItemRef[0]?.current ?? null)
     setCurrentItemWidth(currentListItemWidth)
     setWrapperPosition(wrapperRect)
-    setArrowPosition(currentItemLeftPosition === ARROW_POSITION_THRESHOLD ? ARROW_POSITION_THRESHOLD : currentItemLeftPosition - wrapperRect.left + ((currentListItemWidth / 2) - 8))
+    setArrowPosition(currentItemLeftPosition === ARROW_POSITION_THRESHOLD ? ARROW_POSITION_THRESHOLD : currentItemLeftPosition - wrapperRect.left + currentListItemWidth)
   }, [])
 
   return (
