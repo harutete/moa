@@ -48,6 +48,7 @@ const App: React.FC = () => {
   const menuItemsRef = useRef(MENU_LIST.map(() => createRef<HTMLLIElement>()))
   const [currentItem, setCurrentItem] = useState<HTMLLIElement | null>(null)
   const [wrapperPosition, setWrapperPosition] = useState<DOMRect | null>(null)
+  const [currentItemWidth, setCurrentItemWidth] = useState(0)
   const [arrowPosition, setArrowPosition] = useState(ARROW_POSITION_THRESHOLD)
   const onScrollNavigation = () => {
     const calcItemPosition = currentItem?.getBoundingClientRect().left
@@ -63,10 +64,12 @@ const App: React.FC = () => {
       return
     }
     const wrapperRect = wrapperRef.current.getBoundingClientRect()
-    const currentItemLeftPosition = currentItemRef[0]?.current?.getBoundingClientRect().left ?? 4
+    const currentItemLeftPosition = currentItemRef[0]?.current?.getBoundingClientRect().left ?? ARROW_POSITION_THRESHOLD
+    const currentListItemWidth = currentItemRef[0]?.current?.clientWidth ?? 0
     setCurrentItem(currentItemRef[0]?.current ?? null)
+    setCurrentItemWidth(currentListItemWidth)
     setWrapperPosition(wrapperRect)
-    setArrowPosition(currentItemLeftPosition === 4 ? 4 : currentItemLeftPosition - wrapperRect.left)
+    setArrowPosition(currentItemLeftPosition === ARROW_POSITION_THRESHOLD ? ARROW_POSITION_THRESHOLD : currentItemLeftPosition - wrapperRect.left + ((currentListItemWidth / 2) - 8))
   }, [])
 
   return (
