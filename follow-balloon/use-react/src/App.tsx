@@ -50,12 +50,23 @@ const App: React.FC = () => {
   const [wrapperPosition, setWrapperPosition] = useState<DOMRect | null>(null)
   const [currentItemWidth, setCurrentItemWidth] = useState(0)
   const [arrowPosition, setArrowPosition] = useState(ARROW_POSITION_THRESHOLD)
+  const calcPosition = (itemPosition?: number) => {
+    if (!wrapperPosition || !itemPosition || itemPosition === ARROW_POSITION_THRESHOLD) {
+      return ARROW_POSITION_THRESHOLD
+    }
+
+    if (itemPosition > wrapperPosition.right) {
+      return wrapperPosition?.right - 4
+    }
+
+    return itemPosition - wrapperPosition?.left + currentItemWidth
+  }
   const onScrollNavigation = () => {
     const calcItemPosition = currentItem?.getBoundingClientRect().left
     if (!wrapperPosition?.left || !calcItemPosition) {
       return ARROW_POSITION_THRESHOLD
     }
-    setArrowPosition(calcItemPosition === ARROW_POSITION_THRESHOLD ? ARROW_POSITION_THRESHOLD : calcItemPosition - wrapperPosition?.left + currentItemWidth)
+    setArrowPosition(calcPosition(calcItemPosition))
   }
 
   useEffect(() => {
@@ -69,7 +80,7 @@ const App: React.FC = () => {
     setCurrentItem(currentItemRef[0]?.current ?? null)
     setCurrentItemWidth(currentListItemWidth)
     setWrapperPosition(wrapperRect)
-    setArrowPosition(currentItemLeftPosition === ARROW_POSITION_THRESHOLD ? ARROW_POSITION_THRESHOLD : currentItemLeftPosition - wrapperRect.left + currentListItemWidth)
+    setArrowPosition(calcPosition(currentItemLeftPosition))
   }, [])
 
   return (
