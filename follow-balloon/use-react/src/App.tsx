@@ -17,7 +17,7 @@ const MENU_LIST = [
   },
   {
     title: 'menu04',
-    isCurrent: true
+    isCurrent: false
   },
   {
     title: 'menu05',
@@ -33,7 +33,7 @@ const MENU_LIST = [
   },
   {
     title: 'menu08',
-    isCurrent: false
+    isCurrent: true
   },
   {
     title: 'menu09',
@@ -50,19 +50,20 @@ const App: React.FC = () => {
   const [wrapperPosition, setWrapperPosition] = useState<DOMRect | null>(null)
   const [currentItemWidth, setCurrentItemWidth] = useState(0)
   const [arrowPosition, setArrowPosition] = useState(ARROW_POSITION_THRESHOLD)
-  const calcPosition = (itemPosition?: number) => {
-    if (!wrapperPosition || !itemPosition || itemPosition === ARROW_POSITION_THRESHOLD) {
+  const calcPosition = (itemPosition?: DOMRect) => {
+    if (!wrapperPosition || !itemPosition || itemPosition === null) {
       return ARROW_POSITION_THRESHOLD
     }
 
-    if (itemPosition > wrapperPosition.right) {
-      return wrapperPosition?.right - 4
+    if (itemPosition.right > wrapperPosition.right) {
+      console.log('wrapperPosition.width - ARROW_POSITION_THRESHOLD - currentItemWidth', wrapperPosition.width - ARROW_POSITION_THRESHOLD - currentItemWidth)
+      return wrapperPosition.width - ARROW_POSITION_THRESHOLD - currentItemWidth
     }
 
-    return itemPosition - wrapperPosition?.left + currentItemWidth
+    return itemPosition.left - wrapperPosition?.left + currentItemWidth
   }
   const onScrollNavigation = () => {
-    const calcItemPosition = currentItem?.getBoundingClientRect().left
+    const calcItemPosition = currentItem?.getBoundingClientRect()
     if (!wrapperPosition?.left || !calcItemPosition) {
       return ARROW_POSITION_THRESHOLD
     }
@@ -75,7 +76,7 @@ const App: React.FC = () => {
       return
     }
     const wrapperRect = wrapperRef.current.getBoundingClientRect()
-    const currentItemLeftPosition = currentItemRef[0]?.current?.getBoundingClientRect().left ?? ARROW_POSITION_THRESHOLD
+    const currentItemLeftPosition = currentItemRef[0]?.current?.getBoundingClientRect()
     const currentListItemWidth = currentItemRef[0]?.current?.clientWidth ? (currentItemRef[0]?.current?.clientWidth / 2) - 8 : 0
     setCurrentItem(currentItemRef[0]?.current ?? null)
     setCurrentItemWidth(currentListItemWidth)
