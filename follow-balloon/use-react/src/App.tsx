@@ -81,6 +81,7 @@ const App: React.FC = () => {
     setCurrentItemWidth(currentListItemWidth)
     setWrapperPosition(wrapperRect)
     setArrowPosition(calcPosition(currentItemLeftPosition))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
