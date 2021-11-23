@@ -56,7 +56,6 @@ const App: React.FC = () => {
     }
 
     if (itemPosition.right > wrapperPosition.right) {
-      console.log('wrapperPosition.width - ARROW_POSITION_THRESHOLD - currentItemWidth', wrapperPosition.width - ARROW_POSITION_THRESHOLD - currentItemWidth)
       return wrapperPosition.width - ARROW_POSITION_THRESHOLD - currentItemWidth
     }
 
