@@ -14,11 +14,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import {
+  createComponent,
+  reactive,
+  SetupContext
+} from '@vue/composition-api'
 
-export default defineComponent({
+export default {
   name: 'App'
-});
+};
 </script>
 
 <style>
