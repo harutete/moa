@@ -7,7 +7,7 @@
     </p>
     <nav className="navWrap">
       <ul className="navList">
-        <li v-for="item in menuList" :key={item.title}>
+        <li v-for="item in menuList" :key="item.title">
           {item.title}
         </li>
       </ul>
