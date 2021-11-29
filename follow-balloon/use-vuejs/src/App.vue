@@ -8,7 +8,7 @@
     <nav className="navWrap">
       <ul className="navList">
         <li v-for="item in menuList" :key="item.title">
-          {item.title}
+          {{ item.title }}
         </li>
       </ul>
     </nav>
@@ -66,5 +66,51 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="scss">
+.wrapper {
+  width: 500px;
+  max-width: 85%;
+  margin: auto;
+}
+
+.pickupComment {
+  position: relative;
+  border: 1px solid $color-secondary;
+  border-radius: 4px;
+  background-color: $color-primary;
+  color: $color-secondary;
+  margin-bottom: 16px;
+  padding: 8px;
+}
+
+.pickupCommentArrow {
+  position: absolute;
+  border: 8px solid transparent;
+  bottom: -16px;
+  border-top: 8px solid $color-primary;
+}
+
+.navWrap {
+  overflow: hidden;
+}
+
+.navList {
+  overflow: auto;
+  list-style: none;
+  display: flex;
+  border: 1px solid $color-primary;
+  border-left: none;
+
+  li {
+    border-left: 1px solid $color-primary;
+    text-align: center;
+    width: 120px;
+    padding: 8px;
+
+    &.navListCurrentItem {
+      color: $color-secondary;
+      font-weight: bold;
+    }
+  }
+}
 </style>
