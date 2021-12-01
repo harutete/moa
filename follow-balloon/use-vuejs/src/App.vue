@@ -75,7 +75,6 @@ export default defineComponent({
 
 .pickupComment {
   position: relative;
-  border: 1px solid $color-secondary;
   border-radius: 4px;
   background-color: $color-primary;
   color: $color-secondary;
