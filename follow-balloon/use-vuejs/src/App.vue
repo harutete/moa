@@ -3,11 +3,11 @@
     <h1>Follow ballon</h1>
     <p className="pickupComment">
       コメント
-      <span className="pickupCommentArrow"></span>
+      <span className="pickupCommentArrow" :style="calcArrowPosition"></span>
     </p>
     <nav className="navWrap">
       <ul className="navList">
-        <li v-for="item in menuList" :key="item.title">
+        <li v-for="item in menuList" :key="item.title" :class="{ isCurrent: item.isCurrent }">
           {{ item.title }}
         </li>
       </ul>
