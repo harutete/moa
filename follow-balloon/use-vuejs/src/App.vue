@@ -76,8 +76,8 @@ export default defineComponent({
 .pickupComment {
   position: relative;
   border-radius: 4px;
-  background-color: $color-primary;
-  color: $color-secondary;
+  background-color: $color-secondary;
+  color: $color-primary ;
   margin-bottom: 16px;
   padding: 8px;
 }
@@ -86,7 +86,7 @@ export default defineComponent({
   position: absolute;
   border: 8px solid transparent;
   bottom: -16px;
-  border-top: 8px solid $color-primary;
+  border-top: 8px solid $color-secondary;
 }
 
 .navWrap {
@@ -97,17 +97,17 @@ export default defineComponent({
   overflow: auto;
   list-style: none;
   display: flex;
-  border: 1px solid $color-primary;
+  border: 1px solid $color-secondary;
   border-left: none;
 
   li {
-    border-left: 1px solid $color-primary;
+    border-left: 1px solid $color-secondary;
     text-align: center;
     width: 120px;
     padding: 8px;
 
     &.navListCurrentItem {
-      color: $color-secondary;
+      color: $color-primary ;
       font-weight: bold;
     }
   }
