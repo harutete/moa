@@ -7,7 +7,7 @@
     </p>
     <nav className="navWrap">
       <ul className="navList">
-        <li v-for="item in menuList" :key="item.title" :class="{ isCurrent: item.isCurrent }" ref="menuItems">
+        <li v-for="(item, index) in menuList" :key="item.title" :class="{ isCurrent: item.isCurrent }" :ref="element => { if (element) { menuItems[index] = element }}">
           {{ item.title }}
         </li>
       </ul>
@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
+import { defineComponent, ref, onBeforeUpdate, onMounted } from 'vue';
 
 export default defineComponent({
   name: 'App',
@@ -59,11 +59,17 @@ export default defineComponent({
         isCurrent: false
       },
     ]
-    const menuItems = ref(null)
+    const menuItems = ref<HTMLLIElement[]>([])
+
+    onBeforeUpdate(() => {
+      menuItems.value = []
+    })
 
     onMounted(() => {
-      console.log(menuItems)
+      const findCurrentItem = menuItems.value.filter((item) => item.className === 'isCurrent')
+      console.log({findCurrentItem})
     })
+
     return {
       menuList: MENU_LIST,
       menuItems
