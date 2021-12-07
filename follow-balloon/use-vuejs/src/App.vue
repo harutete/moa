@@ -60,14 +60,21 @@ export default defineComponent({
       },
     ]
     const menuItems = ref<HTMLLIElement[]>([])
+    const currentMenuItem = ref<HTMLLIElement | null>(null)
 
+    const calcCurrentItemPosition = () => {
+      if (currentMenuItem.value === null) {
+        return
+      }
+    }
     onBeforeUpdate(() => {
       menuItems.value = []
     })
 
     onMounted(() => {
       const findCurrentItem = menuItems.value.filter((item) => item.className === 'isCurrent')
-      console.log({findCurrentItem})
+      currentMenuItem.value = findCurrentItem ? findCurrentItem[0] : null
+      calcCurrentItemPosition()
     })
 
     return {
