@@ -3,7 +3,7 @@
     <h1>Follow ballon</h1>
     <p className="pickupComment">
       コメント
-      <span className="pickupCommentArrow" :style="calcArrowPosition"></span>
+      <span className="pickupCommentArrow" :style="{left: `${calcArrowPosition}px`}"></span>
     </p>
     <nav className="navWrap">
       <ul className="navList">
@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onBeforeUpdate, onMounted } from 'vue';
+import { defineComponent, ref, onBeforeUpdate, onMounted, computed } from 'vue';
 
 export default defineComponent({
   name: 'App',
@@ -59,9 +59,17 @@ export default defineComponent({
         isCurrent: false
       },
     ]
+    // 矢印のポジションの閾値
+    const ARROW_POSITION_THRESHOLD = 4
     const menuItems = ref<HTMLLIElement[]>([])
     const currentMenuItem = ref<HTMLLIElement | null>(null)
+    const calcArrowPosition = computed(() => {
+      if (currentMenuItem.value === null) {
+        return ARROW_POSITION_THRESHOLD
+      }
 
+      return ARROW_POSITION_THRESHOLD
+    })
     const calcCurrentItemPosition = () => {
       if (currentMenuItem.value === null) {
         return
@@ -78,6 +86,7 @@ export default defineComponent({
     })
 
     return {
+      calcArrowPosition,
       menuList: MENU_LIST,
       menuItems
     }
