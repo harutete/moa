@@ -6,7 +6,7 @@
       <span className="pickupCommentArrow" :style="{left: `${calcArrowPosition}px`}"></span>
     </p>
     <nav className="navWrap">
-      <ul className="navList">
+      <ul className="navList" ref="menuWrap">
         <li v-for="(item, index) in menuList" :key="item.title" :class="{ isCurrent: item.isCurrent }" :ref="element => { if (element) { menuItems[index] = element }}">
           {{ item.title }}
         </li>
@@ -28,7 +28,7 @@ export default defineComponent({
       },
       {
         title: 'menu02',
-        isCurrent: false
+        isCurrent: true
       },
       {
         title: 'menu03',
@@ -52,7 +52,7 @@ export default defineComponent({
       },
       {
         title: 'menu08',
-        isCurrent: true
+        isCurrent: false
       },
       {
         title: 'menu09',
@@ -61,14 +61,23 @@ export default defineComponent({
     ]
     // 矢印のポジションの閾値
     const ARROW_POSITION_THRESHOLD = 4
+    const menuWrap = ref<HTMLUListElement | null>(null)
+    const menuWrapPosition = ref<DOMRect | null>(null)
     const menuItems = ref<HTMLLIElement[]>([])
     const currentMenuItem = ref<HTMLLIElement | null>(null)
     const calcArrowPosition = computed(() => {
-      if (currentMenuItem.value === null) {
+      if (menuWrap.value === null || menuWrapPosition.value === null || currentMenuItem.value === null) {
         return ARROW_POSITION_THRESHOLD
       }
 
-      return ARROW_POSITION_THRESHOLD
+      const currentMenuItemPosition = currentMenuItem.value.getBoundingClientRect()
+
+      // 対象メニューの右側の座標がリストの幅よりも大きい場合初期値に戻す
+      if (currentMenuItemPosition.right > menuWrapPosition.value.right) {
+        return ARROW_POSITION_THRESHOLD
+      }
+
+      return currentMenuItemPosition.left + (currentMenuItemPosition.width / 2) + ARROW_POSITION_THRESHOLD
     })
     const calcCurrentItemPosition = () => {
       if (currentMenuItem.value === null) {
@@ -82,12 +91,14 @@ export default defineComponent({
     onMounted(() => {
       const findCurrentItem = menuItems.value.filter((item) => item.className === 'isCurrent')
       currentMenuItem.value = findCurrentItem ? findCurrentItem[0] : null
+      menuWrapPosition.value = menuWrap.value ? menuWrap.value.getBoundingClientRect() : null
       calcCurrentItemPosition()
     })
 
     return {
       calcArrowPosition,
       menuList: MENU_LIST,
+      menuWrap,
       menuItems
     }
   }
