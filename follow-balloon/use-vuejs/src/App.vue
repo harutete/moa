@@ -3,7 +3,7 @@
     <h1>Follow ballon</h1>
     <p className="pickupComment">
       コメント
-      <span className="pickupCommentArrow" :style="{left: `${calcArrowPosition}px`}"></span>
+      <span className="pickupCommentArrow" ref="arrow" :style="{left: `${calcArrowPosition}px`}"></span>
     </p>
     <nav className="navWrap">
       <ul className="navList" ref="menuWrap">
@@ -61,23 +61,28 @@ export default defineComponent({
     ]
     // 矢印のポジションの閾値
     const ARROW_POSITION_THRESHOLD = 4
+    const arrow = ref<HTMLSpanElement | null>(null)
     const menuWrap = ref<HTMLUListElement | null>(null)
     const menuWrapPosition = ref<DOMRect | null>(null)
     const menuItems = ref<HTMLLIElement[]>([])
     const currentMenuItem = ref<HTMLLIElement | null>(null)
     const calcArrowPosition = computed(() => {
+      if (arrow.value === null) {
+        return 0
+      }
+
       if (menuWrap.value === null || menuWrapPosition.value === null || currentMenuItem.value === null) {
         return ARROW_POSITION_THRESHOLD
       }
 
       const currentMenuItemPosition = currentMenuItem.value.getBoundingClientRect()
-
+      const arrowWidth = arrow.value.offsetWidth
       // 対象メニューの右側の座標がリストの幅よりも大きい場合初期値に戻す
       if (currentMenuItemPosition.right > menuWrapPosition.value.right) {
         return ARROW_POSITION_THRESHOLD
       }
 
-      return currentMenuItemPosition.left + (currentMenuItemPosition.width / 2) + ARROW_POSITION_THRESHOLD
+      return currentMenuItemPosition.left - menuWrapPosition.value.left + (currentMenuItemPosition.width / 2) - (arrowWidth / 2)
     })
     const calcCurrentItemPosition = () => {
       if (currentMenuItem.value === null) {
@@ -98,6 +103,7 @@ export default defineComponent({
     return {
       calcArrowPosition,
       menuList: MENU_LIST,
+      arrow,
       menuWrap,
       menuItems
     }
