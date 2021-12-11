@@ -6,7 +6,7 @@
       <span className="pickupCommentArrow" ref="arrow" :style="{left: `${calcArrowPosition}px`}"></span>
     </p>
     <nav className="navWrap">
-      <ul className="navList" ref="menuWrap">
+      <ul className="navList" ref="menuWrap" @scroll="handleScrollNavigation">
         <li v-for="(item, index) in menuList" :key="item.title" :class="{ isCurrent: item.isCurrent }" :ref="element => { if (element) { menuItems[index] = element }}">
           {{ item.title }}
         </li>
@@ -66,6 +66,9 @@ export default defineComponent({
     const menuWrapPosition = ref<DOMRect | null>(null)
     const menuItems = ref<HTMLLIElement[]>([])
     const currentMenuItem = ref<HTMLLIElement | null>(null)
+    const handleScrollNavigation = () => {
+      console.log('handleScrollNavigation')
+    }
     const calcArrowPosition = computed(() => {
       if (arrow.value === null) {
         return 0
@@ -105,7 +108,8 @@ export default defineComponent({
       menuList: MENU_LIST,
       arrow,
       menuWrap,
-      menuItems
+      menuItems,
+      handleScrollNavigation
     }
   }
 });
