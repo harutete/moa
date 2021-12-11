@@ -66,8 +66,12 @@ export default defineComponent({
     const menuWrapPosition = ref<DOMRect | null>(null)
     const menuItems = ref<HTMLLIElement[]>([])
     const currentMenuItem = ref<HTMLLIElement | null>(null)
+    const currentMenuItemPosition = ref<DOMRect | null>(null)
     const handleScrollNavigation = () => {
-      console.log('handleScrollNavigation')
+      if (currentMenuItem.value === null) {
+        return
+      }
+      currentMenuItemPosition.value = currentMenuItem.value.getBoundingClientRect()
     }
     const calcArrowPosition = computed(() => {
       if (arrow.value === null) {
@@ -78,14 +82,15 @@ export default defineComponent({
         return ARROW_POSITION_THRESHOLD
       }
 
-      const currentMenuItemPosition = currentMenuItem.value.getBoundingClientRect()
+      const currentItemPosition = currentMenuItem.value.getBoundingClientRect()
       const arrowWidth = arrow.value.offsetWidth
+      currentMenuItemPosition.value = currentItemPosition
       // 対象メニューの右側の座標がリストの幅よりも大きい場合初期値に戻す
-      if (currentMenuItemPosition.right > menuWrapPosition.value.right) {
+      if (currentItemPosition.right > menuWrapPosition.value.right) {
         return ARROW_POSITION_THRESHOLD
       }
 
-      return currentMenuItemPosition.left - menuWrapPosition.value.left + (currentMenuItemPosition.width / 2) - (arrowWidth / 2)
+      return currentItemPosition.left - menuWrapPosition.value.left + (currentItemPosition.width / 2) - (arrowWidth / 2)
     })
     const calcCurrentItemPosition = () => {
       if (currentMenuItem.value === null) {
