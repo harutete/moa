@@ -84,7 +84,6 @@ export default defineComponent({
 
       const currentItemPosition = currentMenuItem.value.getBoundingClientRect()
       const arrowWidth = arrow.value.offsetWidth
-      currentMenuItemPosition.value = currentItemPosition
       // 対象メニューの右側の座標がリストの幅よりも大きい場合初期値に戻す
       if (currentItemPosition.right > menuWrapPosition.value.right) {
         return ARROW_POSITION_THRESHOLD
@@ -105,6 +104,7 @@ export default defineComponent({
       const findCurrentItem = menuItems.value.filter((item) => item.className === 'isCurrent')
       currentMenuItem.value = findCurrentItem ? findCurrentItem[0] : null
       menuWrapPosition.value = menuWrap.value ? menuWrap.value.getBoundingClientRect() : null
+      currentMenuItemPosition.value = currentMenuItem.value?.getBoundingClientRect() ?? null
       calcCurrentItemPosition()
     })
 
