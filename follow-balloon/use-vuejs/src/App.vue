@@ -66,13 +66,12 @@ export default defineComponent({
     const menuWrapPosition = ref<DOMRect | null>(null)
     const menuItems = ref<HTMLLIElement[]>([])
     const currentMenuItem = ref<HTMLLIElement | null>(null)
-    const currentMenuItemPosition = ref<DOMRect | null>(null)
     const arrowPosition = ref(ARROW_POSITION_THRESHOLD)
     const handleScrollNavigation = () => {
       if (currentMenuItem.value === null) {
         return
       }
-      currentMenuItemPosition.value = currentMenuItem.value.getBoundingClientRect()
+      calcArrowPosition()
     }
     const calcArrowPosition = () => {
       if (arrow.value === null) {
@@ -92,29 +91,6 @@ export default defineComponent({
 
       return arrowPosition.value = currentItemPosition.left - menuWrapPosition.value.left + (currentItemPosition.width / 2) - (arrowWidth / 2)
     }
-    // const calcArrowPosition = computed(() => {
-    //   if (arrow.value === null) {
-    //     return 0
-    //   }
-
-    //   if (menuWrap.value === null || menuWrapPosition.value === null || currentMenuItem.value === null) {
-    //     return ARROW_POSITION_THRESHOLD
-    //   }
-
-    //   const currentItemPosition = currentMenuItem.value.getBoundingClientRect()
-    //   const arrowWidth = arrow.value.offsetWidth
-    //   // 対象メニューの右側の座標がリストの幅よりも大きい場合初期値に戻す
-    //   if (currentItemPosition.right > menuWrapPosition.value.right) {
-    //     return ARROW_POSITION_THRESHOLD
-    //   }
-
-    //   return currentItemPosition.left - menuWrapPosition.value.left + (currentItemPosition.width / 2) - (arrowWidth / 2)
-    // })
-    const calcCurrentItemPosition = () => {
-      if (currentMenuItem.value === null) {
-        return
-      }
-    }
     onBeforeUpdate(() => {
       menuItems.value = []
     })
@@ -123,8 +99,7 @@ export default defineComponent({
       const findCurrentItem = menuItems.value.filter((item) => item.className === 'isCurrent')
       currentMenuItem.value = findCurrentItem ? findCurrentItem[0] : null
       menuWrapPosition.value = menuWrap.value ? menuWrap.value.getBoundingClientRect() : null
-      currentMenuItemPosition.value = currentMenuItem.value?.getBoundingClientRect() ?? null
-      calcCurrentItemPosition()
+      calcArrowPosition()
     })
 
     return {
@@ -133,7 +108,8 @@ export default defineComponent({
       arrow,
       menuWrap,
       menuItems,
-      handleScrollNavigation
+      handleScrollNavigation,
+      arrowPosition
     }
   }
 });
