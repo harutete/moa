@@ -3,7 +3,7 @@
     <h1>Follow ballon</h1>
     <p className="pickupComment">
       コメント
-      <span className="pickupCommentArrow" ref="arrow" :style="{left: `${calcArrowPosition}px`}"></span>
+      <span className="pickupCommentArrow" ref="arrow" :style="{left: `${arrowPosition}px`}"></span>
     </p>
     <nav className="navWrap">
       <ul className="navList" ref="menuWrap" @scroll="handleScrollNavigation">
@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onBeforeUpdate, onMounted, computed } from 'vue';
+import { defineComponent, ref, onBeforeUpdate, onMounted } from 'vue';
 
 export default defineComponent({
   name: 'App',
@@ -67,30 +67,49 @@ export default defineComponent({
     const menuItems = ref<HTMLLIElement[]>([])
     const currentMenuItem = ref<HTMLLIElement | null>(null)
     const currentMenuItemPosition = ref<DOMRect | null>(null)
+    const arrowPosition = ref(ARROW_POSITION_THRESHOLD)
     const handleScrollNavigation = () => {
       if (currentMenuItem.value === null) {
         return
       }
       currentMenuItemPosition.value = currentMenuItem.value.getBoundingClientRect()
     }
-    const calcArrowPosition = computed(() => {
+    const calcArrowPosition = () => {
       if (arrow.value === null) {
-        return 0
+        arrowPosition.value = 0
       }
 
       if (menuWrap.value === null || menuWrapPosition.value === null || currentMenuItem.value === null) {
-        return ARROW_POSITION_THRESHOLD
+        return arrowPosition.value = ARROW_POSITION_THRESHOLD
       }
 
       const currentItemPosition = currentMenuItem.value.getBoundingClientRect()
-      const arrowWidth = arrow.value.offsetWidth
+      const arrowWidth = arrow.value?.offsetWidth ?? 0
       // 対象メニューの右側の座標がリストの幅よりも大きい場合初期値に戻す
       if (currentItemPosition.right > menuWrapPosition.value.right) {
-        return ARROW_POSITION_THRESHOLD
+        return arrowPosition.value = ARROW_POSITION_THRESHOLD
       }
 
-      return currentItemPosition.left - menuWrapPosition.value.left + (currentItemPosition.width / 2) - (arrowWidth / 2)
-    })
+      return arrowPosition.value = currentItemPosition.left - menuWrapPosition.value.left + (currentItemPosition.width / 2) - (arrowWidth / 2)
+    }
+    // const calcArrowPosition = computed(() => {
+    //   if (arrow.value === null) {
+    //     return 0
+    //   }
+
+    //   if (menuWrap.value === null || menuWrapPosition.value === null || currentMenuItem.value === null) {
+    //     return ARROW_POSITION_THRESHOLD
+    //   }
+
+    //   const currentItemPosition = currentMenuItem.value.getBoundingClientRect()
+    //   const arrowWidth = arrow.value.offsetWidth
+    //   // 対象メニューの右側の座標がリストの幅よりも大きい場合初期値に戻す
+    //   if (currentItemPosition.right > menuWrapPosition.value.right) {
+    //     return ARROW_POSITION_THRESHOLD
+    //   }
+
+    //   return currentItemPosition.left - menuWrapPosition.value.left + (currentItemPosition.width / 2) - (arrowWidth / 2)
+    // })
     const calcCurrentItemPosition = () => {
       if (currentMenuItem.value === null) {
         return
