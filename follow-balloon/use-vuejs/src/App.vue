@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, onBeforeUpdate, onMounted } from 'vue';
-import { ARROW_POSITION_THRESHOLD, MENU_LIST } from './libs/constants'
+import { ARROW_POSITION_THRESHOLD, MENU_LIST as menuList } from './libs/constants'
 
 export default defineComponent({
   name: 'App',
@@ -68,7 +68,7 @@ export default defineComponent({
 
     return {
       calcArrowPosition,
-      menuList: MENU_LIST,
+      menuList,
       arrow,
       menuWrap,
       menuItems,
