@@ -84,8 +84,11 @@ export default defineComponent({
 
       const currentItemPosition = currentMenuItem.value.getBoundingClientRect()
       const arrowWidth = arrow.value.offsetWidth ?? 0
-      // 対象メニューの右側の座標がリストの幅よりも大きい場合初期値に戻す
-      if (currentItemPosition.right > menuWrapPosition.value.right) {
+      // 対象メニューの左右の座標がリストの幅をはみ出す場合初期値に戻す
+      if (
+        currentItemPosition.left < menuWrapPosition.value.left ||
+        currentItemPosition.right > menuWrapPosition.value.right
+      ) {
         return arrowPosition.value = ARROW_POSITION_THRESHOLD
       }
 
