@@ -140,20 +140,22 @@ export default defineComponent({
 
 .navWrap {
   overflow: hidden;
+  border: 1px solid $color-secondary;
 }
 
 .navList {
   overflow: auto;
   list-style: none;
   display: flex;
-  border: 1px solid $color-secondary;
-  border-left: none;
 
   li {
-    border-left: 1px solid $color-secondary;
     text-align: center;
     width: 120px;
     padding: 8px;
+
+    & + li {
+      border-left: 1px solid $color-secondary;
+    }
 
     &.navListCurrentItem {
       color: $color-primary ;
