@@ -75,7 +75,7 @@ export default defineComponent({
     }
     const calcArrowPosition = () => {
       if (arrow.value === null) {
-        arrowPosition.value = 0
+        return arrowPosition.value = 0
       }
 
       if (menuWrap.value === null || menuWrapPosition.value === null || currentMenuItem.value === null) {
@@ -83,7 +83,7 @@ export default defineComponent({
       }
 
       const currentItemPosition = currentMenuItem.value.getBoundingClientRect()
-      const arrowWidth = arrow.value?.offsetWidth ?? 0
+      const arrowWidth = arrow.value.offsetWidth ?? 0
       // 対象メニューの右側の座標がリストの幅よりも大きい場合初期値に戻す
       if (currentItemPosition.right > menuWrapPosition.value.right) {
         return arrowPosition.value = ARROW_POSITION_THRESHOLD
