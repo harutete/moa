@@ -17,50 +17,11 @@
 
 <script lang="ts">
 import { defineComponent, ref, onBeforeUpdate, onMounted } from 'vue';
+import { ARROW_POSITION_THRESHOLD, MENU_LIST } from './libs/constants'
 
 export default defineComponent({
   name: 'App',
   setup() {
-    const MENU_LIST = [
-      {
-        title: 'menu01',
-        isCurrent: false
-      },
-      {
-        title: 'menu02',
-        isCurrent: true
-      },
-      {
-        title: 'menu03',
-        isCurrent: false
-      },
-      {
-        title: 'menu04',
-        isCurrent: false
-      },
-      {
-        title: 'menu05',
-        isCurrent: false
-      },
-      {
-        title: 'menu06',
-        isCurrent: false
-      },
-      {
-        title: 'menu07',
-        isCurrent: false
-      },
-      {
-        title: 'menu08',
-        isCurrent: false
-      },
-      {
-        title: 'menu09',
-        isCurrent: false
-      },
-    ]
-    // 矢印のポジションの閾値
-    const ARROW_POSITION_THRESHOLD = 4
     const arrow = ref<HTMLSpanElement | null>(null)
     const menuWrap = ref<HTMLUListElement | null>(null)
     const menuWrapPosition = ref<DOMRect | null>(null)
