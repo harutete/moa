@@ -1,5 +1,5 @@
 <template>
-  <Tutorial/>
+  <p>hoge</p>
 </template>
 
 <script lang="ts">
