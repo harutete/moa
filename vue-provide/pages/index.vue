@@ -1,7 +1,8 @@
 <template>
-  <form>
+  <form @submit="addTodo">
     <div>
       <input type="text" value="" />
+      <button type="submit">Add todo!</button>
     </div>
   </form>
 </template>
