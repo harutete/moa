@@ -12,10 +12,6 @@ export const todoList = reactive<TodoList>({
 })
 
 export const addTodo = (todoText: string) => {
-  if (!todoText.length) {
-    return
-  }
-
   todoList.list = [...todoList.list,
   {
     id: todoList.list.length + 1,
