@@ -7,11 +7,7 @@ import { defineComponent, inject } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   setup() {
-    const theme = inject('theme')
-
-    return {
-      theme
-    }
+    inject('theme')
   }
 })
 </script>

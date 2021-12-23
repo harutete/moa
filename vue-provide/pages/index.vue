@@ -25,7 +25,8 @@ export default defineComponent({
       if (!todoText.value.length) {
         return
       }
-      provide('theme', 'black')
+      const theme = ref('black')
+      provide('theme', theme)
 
       addTodo(todoText.value)
     }
