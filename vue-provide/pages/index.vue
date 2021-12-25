@@ -7,12 +7,17 @@
         <input type="submit" value="Add todo!" />
       </div>
     </form>
+    <ul v-if="todoList.length" class="listTodo">
+      <li v-for="(item, index) in todoList" :key="index">
+        {{ item }}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, provide } from '@nuxtjs/composition-api'
-import { addTodo } from '../libs/todo'
+import { todoList, addTodo } from '../libs/todo'
 import Title from '../components/atoms/Title.vue'
 
 export default defineComponent({
@@ -33,7 +38,8 @@ export default defineComponent({
 
     return {
       addTodoItem,
-      todoText
+      todoText,
+      todoList
     }
   }
 })
