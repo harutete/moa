@@ -4,7 +4,7 @@
     <form @submit.prevent="addTodoItem">
       <div>
         <input v-model="todoText" type="text" />
-        <button type="submit">Add todo!</button>
+        <input type="submit" value="Add todo!" />
       </div>
     </form>
   </div>
