@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <Title />
     <form @submit.prevent="addTodoItem">
       <div>
@@ -44,3 +44,11 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss">
+  .wrapper {
+    width: 500px;
+    max-width: 85%;
+    margin: auto;
+  }
+</style>
