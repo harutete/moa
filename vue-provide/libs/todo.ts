@@ -7,14 +7,25 @@ type TodoList = {
   }[]
 }
 
-export const todoList = reactive<TodoList>({
+const todoList = reactive<TodoList>({
   list: []
 })
 
-export const addTodo = (todoText: string) => {
+const addTodo = (todoText: string) => {
+  if (!todoText.length) {
+    return
+  }
+
   todoList.list = [...todoList.list,
   {
     id: todoList.list.length + 1,
     value: todoText
   }]
+}
+
+export const useTodo = () => {
+  return {
+    state: todoList,
+    addTodo
+  }
 }
