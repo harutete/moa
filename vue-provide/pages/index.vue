@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, provide } from '@nuxtjs/composition-api'
-import { useTodo } from '../libs/todo'
+import { useTodo } from '../libs/useTodo'
 import Title from '../components/atoms/Title.vue'
 
 export default defineComponent({
