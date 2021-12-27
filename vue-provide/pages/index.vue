@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, provide } from '@nuxtjs/composition-api'
-import { useTodo } from '../libs/useTodo'
+import { TodoKey, useTodo } from '../libs/use-todo'
 import Title from '../components/atoms/Title.vue'
 
 export default defineComponent({
@@ -27,6 +27,7 @@ export default defineComponent({
   setup() {
     const { state, addTodo } = useTodo()
     const todoText = ref('')
+    provide(TodoKey, useTodo())
 
     return {
       addTodo,

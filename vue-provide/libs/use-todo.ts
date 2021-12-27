@@ -1,4 +1,4 @@
-import { reactive } from '@nuxtjs/composition-api'
+import { reactive, InjectionKey } from '@nuxtjs/composition-api'
 
 type TodoList = {
   list : {
@@ -29,3 +29,7 @@ export const useTodo = () => {
     addTodo
   }
 }
+
+type TodoStore = ReturnType<typeof useTodo>
+
+export const TodoKey: InjectionKey<TodoStore> = Symbol('TodoStore')

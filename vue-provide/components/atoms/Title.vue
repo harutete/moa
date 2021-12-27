@@ -4,6 +4,7 @@
 
 <script lang="ts">
 import { defineComponent, inject } from '@nuxtjs/composition-api'
+import { TodoKey } from '../../libs/use-todo'
 
 export default defineComponent({
   props: {
@@ -12,7 +13,7 @@ export default defineComponent({
     }
   },
   setup() {
-    inject('theme')
+    const { state } = inject(TodoKey)
   }
 })
 </script>
