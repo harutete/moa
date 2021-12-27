@@ -61,7 +61,7 @@ export default defineComponent({
       }
 
       &__input {
-        border: 1px solid #ddd;
+        border: 1px solid #dddddd;
         border-radius: 4px;
         padding: 8px;
       }
