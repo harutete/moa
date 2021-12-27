@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <Title />
+    <Title text="Add TODO" />
     <form @submit.prevent="addTodoItem">
       <div class="addTodo">
         <input v-model="todoText" type="text" class="addTodo__input" />
@@ -27,6 +27,7 @@ export default defineComponent({
   setup() {
     const todoText = ref('')
     const addTodoItem = () => {
+      console.log(todoText.value)
       if (!todoText.value.length) {
         return
       }
@@ -49,12 +50,12 @@ export default defineComponent({
   .wrapper {
     width: 500px;
     max-width: 85%;
-    margin: auto;
+    margin: 16px auto 0;
 
     .addTodo {
       display: flex;
       justify-content: center;
-      margin-right: -8px;
+      margin: 16px -8px 0 0;
 
       & > * {
         margin-right: 8px;
@@ -67,6 +68,7 @@ export default defineComponent({
       }
 
       &__button {
+        cursor: pointer;
         border: none;
         border-radius: 4px;
         font-weight: bold;
