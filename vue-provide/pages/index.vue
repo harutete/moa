@@ -2,9 +2,9 @@
   <div class="wrapper">
     <Title />
     <form @submit.prevent="addTodoItem">
-      <div class="addTodoContent">
-        <input v-model="todoText" type="text" />
-        <input type="submit" value="Add todo!" class="addTodoButton" />
+      <div class="addTodo">
+        <input v-model="todoText" type="text" class="addTodo__input" />
+        <input type="submit" value="Add todo!" class="addTodo__button" />
       </div>
     </form>
     <ul v-if="todoList.length" class="listTodo">
@@ -51,15 +51,27 @@ export default defineComponent({
     max-width: 85%;
     margin: auto;
 
-    .addTodoContent {
+    .addTodo {
       display: flex;
       justify-content: center;
-    }
+      margin-right: -8px;
 
-    .addTodoButton {
-      border: none;
-      border-radius: 4px;
-      padding: 8px;
+      & > * {
+        margin-right: 8px;
+      }
+
+      &__input {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 8px;
+      }
+
+      &__button {
+        border: none;
+        border-radius: 4px;
+        font-weight: bold;
+        padding: 8px;
+      }
     }
   }
 </style>
