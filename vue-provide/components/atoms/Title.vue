@@ -1,5 +1,8 @@
 <template>
-  <h1 class="title">{{ text }}</h1>
+  <div>
+    <h1 class="title">{{ text }}</h1>
+    <p>{{ state.list }}</p>
+  </div>
 </template>
 
 <script lang="ts">
@@ -14,6 +17,9 @@ export default defineComponent({
   },
   setup() {
     const { state } = inject(TodoKey)
+    return {
+      state
+    }
   }
 })
 </script>

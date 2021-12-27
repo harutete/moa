@@ -27,10 +27,13 @@ export default defineComponent({
   setup() {
     const { state, addTodo } = useTodo()
     const todoText = ref('')
+    const addTodoItem = (todoText: string) => {
+      addTodo(todoText)
+    }
     provide(TodoKey, useTodo())
 
     return {
-      addTodo,
+      addTodoItem,
       todoText,
       todoList: state
     }
