@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="title">{{ text }}</h1>
-    <p>{{ state.list }}</p>
+    <p>{{ list }}</p>
   </div>
 </template>
 
@@ -16,9 +16,9 @@ export default defineComponent({
     }
   },
   setup() {
-    const { state } = inject(TodoKey)
+    const todoStore = inject(TodoKey)
     return {
-      state
+      list: todoStore?.state.list
     }
   }
 })
