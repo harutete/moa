@@ -30,6 +30,6 @@ export const useTodo = () => {
   }
 }
 
-type TodoStore = ReturnType<typeof useTodo>
+export type TodoStore = ReturnType<typeof useTodo>
 
 export const TodoKey: InjectionKey<TodoStore> = Symbol('TodoStore')
