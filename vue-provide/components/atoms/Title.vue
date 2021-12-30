@@ -6,19 +6,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject } from '@nuxtjs/composition-api'
+import { defineComponent, inject, computed } from '@nuxtjs/composition-api'
 import { TodoKey } from '../../libs/use-todo'
 
 export default defineComponent({
   props: {
     text: {
-      type: String
+      type: String,
+      default: ''
     }
   },
   setup() {
     const todoStore = inject(TodoKey)
+    const todoList = computed(() => todoStore?.state.list)
+
     return {
-      list: todoStore?.state.list
+      list: todoList
     }
   }
 })
