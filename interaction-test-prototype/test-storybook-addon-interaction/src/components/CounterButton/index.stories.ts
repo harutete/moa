@@ -10,7 +10,7 @@ const meta: Meta = {
     count: {
       control: { type: 'number' },
     },
-    click: {
+    onClick: {
       action: true
     }
   },
@@ -31,15 +31,14 @@ Primary.args = {
 };
 
 export const Counter = Template.bind({});
-Primary.args = {
+Counter.args = {
   count: 0,
 };
-Primary.play = async ({ args, canvasElement }) => {
+Counter.play = async ({ args, canvasElement }) => {
   const canvas = within(canvasElement);
   const button = canvas.getByRole('button')
 
-  expect(button).toHaveTextContent('count is 1')
+  expect(button).toHaveTextContent('count is 0')
   await userEvent.click(button);
-  await expect(args.click).toHaveBeenCalled();
-  expect(button).toHaveTextContent('count is 1')
+  await expect(args.onClick).toHaveBeenCalled();
 }
